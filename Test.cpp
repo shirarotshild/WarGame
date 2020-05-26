@@ -1,44 +1,93 @@
-#include "doctest.h"
+#include <string>
 #include <iostream>
-#include <stdexcept>
-
-#include "DemoGame.hpp"
 #include "Board.hpp"
-#include "FootSoldier.hpp"
+#include "doctest.h"
+#include "Soldier.hpp"
 #include "FootCommander.hpp"
-#include <cassert>
-
-
+#include "ParamedicCommander.hpp"
+#include "FootSoldier.hpp"
+#include "Sniper.hpp"
+namespace WarGame {
 	
 
-TEST_CASE("Positioning the players"){
-           WarGame:: Board board (8, 8);
-		    board[{0,1}] = new FootSoldier(1);
-			board[{0,3}] = new FootCommander(1);
-			board[{0,5}] = new FootSoldier(1);
-			Soldier *s1=board[{0,1}];
-			Soldier *s2=board[{0,3}];
-			Soldier *s3=board[{0,5}];
-			
-			CHECK((s1->getNum_team()) ==1);
-			CHECK((s2->getNum_team()) ==1);
-			CHECK((s3->getNum_team()) ==1);
-			
-			CHECK((s1->getHealth_points()) ==100);
-			CHECK((s2->getHealth_points()) ==100);
-			CHECK((s3->getHealth_points()) ==100);
-			
-			CHECK((s1->getDamage_points()) ==1);
-			CHECK((s2->getDamage_points()) ==1);
-			CHECK((s3->getDamage_points()) ==1);
-			
-			
-			
-			
-			
-			
-			
-			board[{7,1}] = new FootSoldier(2);
-			board[{7,3}] = new FootCommander(2);
-			board[{7,5}] = new FootSoldier(2);
-}	
+   Board b(20,20);
+   
+
+
+TEST_CASE("Test replacement of p, f and b") {
+
+
+   CHECK(!b.has_soldiers(1));
+   CHECK(!b.has_soldiers(2));
+   for (int i = 0; i < 20; i++) {
+     
+     b[{5,i}] = new FootSoldier(1);
+   //   CHECK_NOTHROW( b[{0,i}] = new FootSoldier(1));
+   CHECK(true);
+   }
+   CHECK(b.has_soldiers(1));
+   CHECK(!b.has_soldiers(2));
+   for (int i = 0; i < 20; i++) {
+     
+     b[{15,i}] = new FootSoldier(2);
+   //   CHECK_NOTHROW( b[{0,i}] = new FootSoldier(1));
+   CHECK(true);
+   }
+   CHECK(b.has_soldiers(1));
+   CHECK(b.has_soldiers(2));
+
+   for (int i = 0; i < 20; i++) {
+     b[{0,i}] = new FootSoldier(1);
+   //   CHECK_NOTHROW( b[{0,i}] = new FootSoldier(1));
+   CHECK(true);
+   }
+   
+
+   for (int i = 0; i < 20; i++) {
+     b[{19,i}] = new FootCommander(2);
+   //  b[{16,i}] = new SniperCommander(2);
+   //   CHECK_NOTHROW( b[{0,i}] = new FootSoldier(1));
+   CHECK(true);
+   }
+  // printf("IM ok\n");
+  // CHECK_NOTHROW(b.move(1, {0,15}, Board::MoveDIR::Up));
+   for (int i = 0; i < 15; i++)
+   {
+    //  printf("%d\n", i);
+      if(b.has_soldiers(2) &&b.has_soldiers(1)){
+        CHECK_NOTHROW(b.move(1, {0,i}, Board::MoveDIR::Up));
+
+        CHECK_NOTHROW(b.move(2, {15,i}, Board::MoveDIR::Down));
+      }
+   }
+   
+   /*
+ //  for (int  i = 0; i < 20; i++)
+  // {
+    //  printf("%d\n", i);
+ //     if(b[{0,i}]!=nullptr){
+ //        printf("%d and not null", i);
+ //       CHECK_NOTHROW(b.move(1, {0,i}, Board::MoveDIR::Up));
+      }
+      else
+      {
+         CHECK_THROWS(b.move(1, {0,i}, Board::MoveDIR::Up));
+      }
+      printf("%d\n", i);
+      //}
+      if(b[{18,i}]!=nullptr)
+         CHECK_NOTHROW(b.move(2, {18,i}, Board::MoveDIR::Down));
+      else
+      {
+         CHECK_THROWS(b.move(2, {18,i}, Board::MoveDIR::Down));
+      }
+         
+   }
+   */
+   
+
+
+}
+
+}
+

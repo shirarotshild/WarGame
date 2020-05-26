@@ -62,7 +62,7 @@ void Board :: move(uint player_number, std::pair<int,int> source, MoveDIR direct
 		 throw std::invalid_argument("The place belongs to another soldier");
 	}
 	(*this)[{first_new,second_new}] = s;
-	s->attack(board, first_new,second_new,player_number);
+	s->attack(board, first_new,second_new);
 	
 	
 	
@@ -90,7 +90,7 @@ void  Board :: print(){
 			for(int j=0; j< board[i].size(); ++j) {
 				Soldier* s = (*this)[{i, j}];
 				if (s != nullptr){
-					cout <<s->getNum_team() <<"+"<<s->getHealth_points()<<"	";
+					cout <<s->getNum_team()<<"+"<<s->getHealth_points()<<"+"<<s->getDamage_points()<<" ";
 				}
 				else{
 					cout<<"--"<<"	";
