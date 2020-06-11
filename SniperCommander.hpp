@@ -22,7 +22,7 @@ class SniperCommander :public Soldier {
 				Soldier* att = b[t][l];
 				index3=t;
 				index4=l;
-				if (att != nullptr && att->getNum_team() == getNum_team()&& (att->getType() == "sniper" || att->getType() =="snipercommander")){					cout<<";;"<<endl;
+				if (att != nullptr && att->getNum_team() == getNum_team()&& (att->getType() == "sniper" )){					
 				 for(int i= 0; i< b.size(); ++i){
 					for(int j=0; j< b[i].size(); ++j) {
 			        Soldier* s = b[i][j];

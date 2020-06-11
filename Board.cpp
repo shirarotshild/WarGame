@@ -26,10 +26,20 @@ Soldier* Board :: operator[](std::pair<int,int> location) const{
     // Your code should be generic. All handling of different types of soldiers 
     //      must be handled by polymorphism.
 void Board :: move(uint player_number, std::pair<int,int> source, MoveDIR direction){
-	Soldier* s = (*this)[source];
+	
 	int first=source.first;
 	int second=source.second;
+	
+	if(first >= board.size() || first < 0 || second >= board[0].size() || second < 0) {
+		throw invalid_argument("Outside of the board");
+		}
+	
+	Soldier* s = (*this)[source];
+	
+	
 	if((*this)[{first,second}] == nullptr){
+		
+		
 		 throw std::invalid_argument("No player in the selected location");
 	}
 	if(s->getNum_team() != player_number){
@@ -54,13 +64,18 @@ void Board :: move(uint player_number, std::pair<int,int> source, MoveDIR direct
 	second_new=second-1;
     first_new=first;	
 	}
-	if(first_new < 0 || first_new > board.size()-1 || second_new <0 || second_new > board[0].size()-1){
-		 throw std::invalid_argument("Invalid displacement");
+	
+	if(first_new < 0 || first_new >= board.size()|| second_new <0 || second_new >= board[0].size()){
+			
+		throw std::invalid_argument("Invalid displacement");
 	}
-	(*this)[source] = nullptr;
+	
 	if((*this)[{first_new,second_new}] != nullptr){
+		
 		 throw std::invalid_argument("The place belongs to another soldier");
 	}
+	
+	(*this)[source] = nullptr;
 	(*this)[{first_new,second_new}] = s;
 	s->attack(board, first_new,second_new);
 	
