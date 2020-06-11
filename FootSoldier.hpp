@@ -11,6 +11,7 @@ class FootSoldier :public Soldier {
 	setHealth_points(100);
 	setDamage_points(10);
 	setMax_health_points(100);
+	setType("FootSoldier");
 	}
 	void attack(vector<vector<Soldier*>> &b, int first, int second){
 		int index1=-1; 
