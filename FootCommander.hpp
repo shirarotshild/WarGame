@@ -10,6 +10,7 @@ class FootCommander :public Soldier {
 		setHealth_points(150);
 		setDamage_points(20);
 		setMax_health_points(150);
+		setType("FootCommander");
 	}
 	void attack(vector<vector<Soldier*>> &b, int first, int second){
 	    double minDis;
@@ -22,8 +23,7 @@ class FootCommander :public Soldier {
 				Soldier* att = b[t][l];
 				index3=t;
 				index4=l;
-				if (att != nullptr && att->getNum_team() == getNum_team()){
-					cout<<att->getHealth_points()<<endl;
+				if (att != nullptr && att->getNum_team() == getNum_team() && att->getType() == "FootSoldier"){
 				 for(int i= 0; i< b.size(); ++i){
 					for(int j=0; j< b[i].size(); ++j) {
 			        Soldier* s = b[i][j];
